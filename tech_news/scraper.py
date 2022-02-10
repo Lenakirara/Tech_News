@@ -1,5 +1,6 @@
 import requests
 import time
+from parsel import Selector
 
 
 # time - sleep: https://realpython.com/python-sleep/
@@ -20,9 +21,18 @@ def fetch(url, timeout=3):
         return None
 
 
+# parsel - https://parsel.readthedocs.io/en/latest/usage.html
 # Requisito 2
 def scrape_novidades(html_content):
-    """Seu código deve vir aqui"""
+    selector = Selector(html_content)
+    # buscando pelo título ... .tec--card__title (tag h3) | href (link)
+    news_list = [
+        news
+        for news in selector.css(
+            "h3.tec--card__title a::attr(href)"
+        ).getall()
+    ]
+    return news_list
 
 
 # Requisito 3
