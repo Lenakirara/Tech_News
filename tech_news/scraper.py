@@ -45,9 +45,92 @@ def scrape_next_page_link(html_content):
         return None
 
 
+# tive que mudar css de .tec--author__info__link::text
+# para .z--font-bold *::text (as paginas de url nos teste tem esse mesmo css)
+# O * irá visitar todas as tags internas
+def get_writer(selector):
+    writer = selector.css(".z--font-bold *::text").get()
+    if writer:
+        # retirando os espaços em branco no inicio e no final - strip()
+        return writer.strip()
+    else:
+        return None
+
+
+def get_shares_count(selector):
+    shares_count = selector.css(".tec--toolbar__item::text").get()
+    # int() - para apresentar um numero inteiro
+    # split - separar as strs e buscar o primeiro elemento
+    if shares_count:
+        return int(shares_count.split()[0])
+    else:
+        return 0
+
+
+def get_comments_count(selector):
+    comments_count = selector.css("#js-comments-btn::attr(data-count)").get()
+    # puxando pelo atributo: data-count (css)
+    # int() - para apresentar um numero inteiro
+    if comments_count:
+        return int(comments_count)
+    else:
+        return 0
+
+
+# https://www.pythonprogressivo.net/2018/10/Unir-Separar-Strings-join-split-Tutorial-Python.html
+def get_summary(selector):
+    summary = selector.css(
+        ".tec--article__body > p:nth-child(1) *::text"
+    ).getall()
+    # join para juntar o texto:['O CEO da ', 'Tesla', ', ', 'Elon Musk'...]
+    paragraph = "".join(summary)
+    return paragraph
+
+
+# strip() | list Comprehension:
+# https://stackoverflow.com/questions/28534125/list-comprehension-elegantly-strip-and-remove-empty-elements-in-list
+def get_sources(selector):
+    # .z--mb-16 div a::text - css usado para pegar a fonte correta
+    # usando css -> .tec--badge::text estava buscando tanto source qto category
+    sources = [
+        source.strip()
+        for source in selector.css(".z--mb-16 div a::text").getall()
+    ]
+    return sources
+
+
+def get_categories(selector):
+    categories = [
+        category.strip()
+        for category in selector.css(".tec--badge--primary ::text").getall()
+    ]
+    return categories
+
+
 # Requisito 4
 def scrape_noticia(html_content):
-    """Seu código deve vir aqui"""
+    selector = Selector(html_content)
+    url = selector.css("head link[rel=canonical]::attr(href)").get()
+    title = selector.css(".tec--article__header__title::text").get()
+    timestamp = selector.css("#js-article-date::attr(datetime)").get()
+    writer = get_writer(selector)
+    shares_count = get_shares_count(selector)
+    comments_count = get_comments_count(selector)
+    summary = get_summary(selector)
+    sources = get_sources(selector)
+    categories = get_categories(selector)
+
+    return {
+        "url": url,
+        "title": title,
+        "timestamp": timestamp,
+        "writer": writer,
+        "shares_count": shares_count,
+        "comments_count": comments_count,
+        "summary": summary,
+        "sources": sources,
+        "categories": categories,
+    }
 
 
 # Requisito 5
