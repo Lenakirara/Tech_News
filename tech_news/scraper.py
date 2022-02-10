@@ -1,6 +1,23 @@
+import requests
+import time
+
+
+# time - sleep: https://realpython.com/python-sleep/
+# https://www.programiz.com/python-programming/time/sleep
+# https://docs.python.org/3/library/asyncio-task.html?highlight=timeout#timeouts
+# Requests - https://realpython.com/python-requests/
+# https://stackoverflow.com/questions/21965484/timeout-for-python-requests-get-entire-response
 # Requisito 1
-def fetch(url):
-    """Seu código deve vir aqui """
+def fetch(url, timeout=3):
+    try:
+        time.sleep(1)
+        response = requests.get(url, timeout=timeout)
+        if response.status_code != 200:
+            return None
+        else:
+            return response.text
+    except requests.Timeout:
+        return None
 
 
 # Requisito 2
