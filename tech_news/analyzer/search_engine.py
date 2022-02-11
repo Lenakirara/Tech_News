@@ -2,6 +2,12 @@ from tech_news.database import db
 from datetime import datetime
 
 
+# função criada pois retorna uma lista de tuplas que será usadas nos searchs
+def get_news_list(news):
+    news_list = [(post["title"], post["url"]) for post in news]
+    return news_list
+
+
 # case insensitive - mongodb:
 # https://stackoverflow.com/questions/1863399/mongodb-is-it-possible-to-make-a-case-insensitive-query
 # https://docs.mongodb.com/manual/reference/operator/query/regex/
@@ -10,8 +16,7 @@ from datetime import datetime
 def search_by_title(title):
     # no teste: db.news (...)
     news = db.news.find({"title": {"$regex": title, "$options": "i"}})
-    news_list = [(post["title"], post["url"]) for post in news]
-    return news_list
+    return get_news_list(news)
 
 
 # Mauricio Ieiri (sala c) deu a dica de usar strptime()
@@ -24,8 +29,7 @@ def search_by_date(date):
     try:
         datetime.strptime(date, "%Y-%m-%d")
         news = db.news.find({"timestamp": {"$regex": date}})
-        news_list = [(post["title"], post["url"]) for post in news]
-        return news_list
+        return get_news_list(news)
     except ValueError:
         raise ValueError("Data inválida")
 
@@ -33,8 +37,7 @@ def search_by_date(date):
 # Requisito 8
 def search_by_source(source):
     news = db.news.find({"sources": {"$regex": source, "$options": "i"}})
-    news_list = [(post["title"], post["url"]) for post in news]
-    return news_list
+    return get_news_list(news)
 
 
 # Requisito 9
