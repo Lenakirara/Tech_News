@@ -1,4 +1,5 @@
 from tech_news.database import db
+from datetime import datetime
 
 
 # case insensitive - mongodb:
@@ -13,9 +14,20 @@ def search_by_title(title):
     return news_list
 
 
+# Mauricio Ieiri (sala c) deu a dica de usar strptime()
+# https://docs.python.org/pt-br/3/library/datetime.html?highlight=strptime
+# http://www.w3big.com/pt/python/att-time-strptime.html
+# https://acervolima.com/funcao-python-time-strptime/
+# https://www.programiz.com/python-programming/datetime/strptime
 # Requisito 7
 def search_by_date(date):
-    """Seu código deve vir aqui"""
+    try:
+        datetime.strptime(date, "%Y-%m-%d")
+        news = db.news.find({"timestamp": {"$regex": date}})
+        news_list = [(post["title"], post["url"]) for post in news]
+        return news_list
+    except ValueError:
+        raise ValueError("Data inválida")
 
 
 # Requisito 8
