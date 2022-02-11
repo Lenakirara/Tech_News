@@ -1,6 +1,7 @@
 import requests
 import time
 from parsel import Selector
+from tech_news.database import create_news
 
 
 # time - sleep: https://realpython.com/python-sleep/
@@ -135,4 +136,28 @@ def scrape_noticia(html_content):
 
 # Requisito 5
 def get_tech_news(amount):
-    """Seu código deve vir aqui"""
+    URL_BASE = fetch("https://www.tecmundo.com.br/novidades")
+    last_news_urls = scrape_novidades(URL_BASE)
+
+    # no teste: amount", [20, 30, 40]
+    while len(last_news_urls) < amount:
+        next_page_link = scrape_next_page_link(URL_BASE)
+        html_page = fetch(next_page_link)
+        news_urls = scrape_novidades(html_page)
+        last_news_urls.extend(news_urls)
+
+    news_list = []
+    # buscaremos cada 'url_link' no 'last_news_urls'
+    # 'url_link' que serão iterados
+    # https://www.digitalocean.com/community/tutorials/how-to-index-and-slice-strings-in-python-3-pt
+    for url_link in last_news_urls[:amount]:
+        html_news = fetch(url_link)
+        news_list.append(scrape_noticia(html_news))
+
+    create_news(news_list)
+
+    return news_list
+
+# extend() X append()
+# https://www.geeksforgeeks.org/append-extend-python/
+# https://pt.stackoverflow.com/questions/170741/num-list-qual-%C3%A9-a-diferen%C3%A7a-entre-append-e-extend
