@@ -146,18 +146,16 @@ def get_tech_news(amount):
         news_urls = scrape_novidades(html_page)
         last_news_urls.extend(news_urls)
 
-    news_list = []
-    # buscaremos cada 'url_link' no 'last_news_urls'
-    # 'url_link' que serão iterados
-    # https://www.digitalocean.com/community/tutorials/how-to-index-and-slice-strings-in-python-3-pt
-    for url_link in last_news_urls[:amount]:
-        html_news = fetch(url_link)
-        news_list.append(scrape_noticia(html_news))
-
+    # refatorado usando list comprehension
+    # https://medium.com/data-hackers/aprenda-list-comprehension-7335844265bd
+    news_list = [
+        scrape_noticia(fetch(url_link)) for url_link in last_news_urls[:amount]
+    ]
     create_news(news_list)
 
     return news_list
 
+# https://www.digitalocean.com/community/tutorials/how-to-index-and-slice-strings-in-python-3-pt
 # extend() X append()
 # https://www.geeksforgeeks.org/append-extend-python/
 # https://pt.stackoverflow.com/questions/170741/num-list-qual-%C3%A9-a-diferen%C3%A7a-entre-append-e-extend
