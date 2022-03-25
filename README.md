@@ -1,55 +1,6 @@
-### Termos e acordos
-
-Ao iniciar este projeto, você concorda com as diretrizes do Código de Ética e Conduta e do
-Manual da Pessoa Estudante da Trybe.
-
 # Boas vindas ao repositório do projeto de Tech News!
 
-Você já usa o _GitHub_ diariamente para desenvolver os exercícios, certo? Agora, para desenvolver os projetos, você deverá seguir as instruções a seguir. Fique atento a cada passo, e se tiver qualquer dúvida, nos envie por _Slack_! #vqv 🚀
-
-Aqui você vai encontrar os detalhes de como estruturar o desenvolvimento do seu projeto a partir desse repositório, utilizando uma branch específica e um _Pull Request_ para colocar seus códigos.
-
----
-
-# Sumário
-
-- [Habilidades](#habilidades)
-- [Entregáveis](#Entregáveis)
-  - [O que deverá ser desenvolvido](#o-que-deverá-ser-desenvolvido)
-  - [Antes de começar a desenvolver](#antes-de-começar-a-desenvolver)
-  - [Data de entrega](#data-de-entrega)
-- [Intruções para entregar](#Instruções-para-entregar-seu-projeto)
-  - [Durante o desenvolvimento](#durante-o-desenvolvimento)
-  - [Depois de terminar o desenvolvimento](#depois-de-terminar-o-desenvolvimento)
-  - [Revisando um pull request](#revisando-um-pull-request)
-  - [Linter](#linter)
-- [Como desenvolver](#como-desenvolver)
-  - [Testes](#testes)
-  - [Raspagem de notícias](#raspagem-de-notícias)
-  - [MongoDB](#mongodb)
-
-Lista de requisitos:
-- [Requisitos obrigatórios](#requisitos-obrigatórios)
-  - [1 - Crie a função fetch](#1---crie-a-função-fetch)
-  - [2 - Crie a função scrape_novidades](#2---crie-a-função-scrape_novidades)
-  - [3 - Crie a função scrape_next_page_link](#3---crie-a-função-scrape_next_page_link)
-  - [4 - Crie a função scrape_noticia](#4---crie-a-função-scrape_noticia)
-  - [5 - Crie a função get_tech_news para obter as notícias!](#5---crie-a-função-get_tech_news-para-obter-as-notícias)
-  - [6 - Crie a função search_by_title](#6---crie-a-função-search_by_title)
-  - [7 - Crie a função search_by_date](#7---crie-a-função-search_by_date)
-  - [8 - Crie a função search_by_source,](#8---crie-a-função-search_by_source)
-  - [9 - Crie a função search_by_category](#9---crie-a-função-search_by_category)
-  - [10 - Crie a função top_5_news](#10---crie-a-função-top_5_news)
-  - [11 - Crie a função top_5_categories](#11---crie-a-função-top_5_categories)
-- [Requisitos bônus](#requisitos-bônus)
-  - [12 - Crie a função analyzer_menu](#12---crie-a-função-analyzer_menu)
-  - [13 - Implemente as funcionalidades do menu](#13---implemente-as-funcionalidades-do-menu)
-
-- [Avisos finais](#avisos-finais)
-
----
-
-# Habilidades
+## Habilidades desenvolvidas:
 
 - Utilizar o terminal interativo do Python;
 - Escrever seus próprios módulos e importá-los em outros códigos;
@@ -82,9 +33,9 @@ As notícias podem ser obtidas através da raspagem das [últimas notícias do _
 
 1. Clone o repositório
 
-- `git clone https://github.com/tryber/sd-011-tech-news.git`.
+- `git clone git@github.com:Lenakirara/Tech_News.git`.
 - Entre na pasta do repositório que você acabou de clonar:
-  - `sd-011-tech-news`
+  - `cd Tech_News`
 
 2. Crie o ambiente virtual para o projeto
 
@@ -132,14 +83,6 @@ As notícias podem ser obtidas através da raspagem das [últimas notícias do _
 - Volte até a [página de _Pull Requests_ do repositório](https://github.com/tryber/sd-011-tech-news/pulls) e confira que o seu _Pull Request_ está criado
 
 ---
-
-## Data de Entrega
-
-- Serão `2` dias de projeto.
-- Data de entrega para avaliação final do projeto: `21/02/2022 14:00`.
-
----
-# Instruções para entregar seu projeto:
 
 ## Durante o desenvolvimento
 
@@ -643,15 +586,5 @@ local: `tech_news/menu.py`
 - Caso alguma exceção seja lançada, a mesma deve ser capturada e sua mensagem deve ser exibida na saída padrão de erros (`stderr`).
 
 ✍️ Teste manual: dentro de um ambiente virtual onde seu projeto foi configurado, digite o comando `tech-news-analyzer`, assim você conseguirá interagir com o menu.
-
----
-
-# Avisos Finais
-
-Ao finalizar e submeter o projeto, não se esqueça de avaliar sua experiência preenchendo o formulário. Leva menos de 3 minutos!
-
-Link: [FORMULÁRIO DE AVALIAÇÃO DE PROJETO](https://bit.ly/2OfLJPn)
-
-O avaliador automático não necessariamente avalia seu projeto na ordem em que os requisitos aparecem no readme. Isso acontece para deixar o processo de avaliação mais rápido. Então, não se assuste se isso acontecer, ok?
 
 ---
